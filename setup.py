@@ -56,4 +56,4 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
-setup(cmdclass={'build_sphinx': BuildDocApiDoc, 'test': PyTest}, )
+setup(cmdclass={'build_sphinx': BuildDocApiDoc, 'test': PyTest})

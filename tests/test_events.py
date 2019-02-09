@@ -3,7 +3,7 @@
 from os import path
 
 from src import events
-from . import conftest
+from tests import conftest
 
 
 class Test_KUEventManager:
@@ -44,4 +44,3 @@ class Test_KUEventManager:
                                                  date=date(2018, 1, 1))
         # 何故か is が使えないのでクラスの定義から直接判別する.
         assert assert_event.__eq__(event)
-
