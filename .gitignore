@@ -75,3 +75,4 @@ docs/_build/
 /docs/source/modules.rst
 /files.txt
 /.eggs/
+.venv
