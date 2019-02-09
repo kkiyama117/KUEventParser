@@ -43,7 +43,7 @@ class Event:
         self.end = end
 
     def __str__(self):
-        """
+        """ to string
 
         Returns:
             str: `self.title`
