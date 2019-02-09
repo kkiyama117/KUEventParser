@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <link rel="stylesheet" href="../../../../../../kkouh/Downloads/京大マップ_files/640a56edfdb4.css" type="text/css">
+
+    <link rel="stylesheet" href="../../../../../../kkouh/Downloads/京大マップ_files/index.css">
+
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="http://www.kyodaimap.net/static/icon/favicon.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="http://www.kyodaimap.net/static/icon/favicon.ico">
+
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-152x152-precomposed.png">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-120x120-precomposed.png">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" sizes="76x76"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-76x76-precomposed.png">
+    <link rel="apple-touch-icon" sizes="72x72"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" sizes="57x57"
+          href="http://www.kyodaimap.net/static/icon/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" href="http://www.kyodaimap.net/static/icon/apple-touch-icon-precomposed.png">
+
+    <title>京大マップ</title>
+
+
+    <meta name="keywords" content="京大マップ, 京都大学, 地図, アプリ, iPhone, Android, Unimap">
+    <meta name="description"
+          content="京大マップの公式サイト。京大マップは京大内の情報共有地図アプリです。 多くの建物や教室の情報を得られるとともに、簡単に投稿できるイベント機能で、様々なイベント情報を簡単に共有できます。SNSとも連携して、より多くの人々に情報を発信するツールとして利用出来ます。">
+    <meta name="apple-itunes-app" content="app-id=564477827">
+
+    <style type="text/css">.backpack.dropzone {
+        font-family: 'SF UI Display', 'Segoe UI';
+        font-size: 15px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        height: 150px;
+        font-weight: lighter;
+        color: white;
+        will-change: right;
+        z-index: 2147483647;
+        bottom: 20%;
+        background: #333;
+        position: fixed;
+        user-select: none;
+        transition: left .5s, right .5s;
+        right: 0px;
+    }
+
+    .backpack.dropzone .animation {
+        height: 80px;
+        width: 250px;
+        background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center;
+    }
+
+    .backpack.dropzone .title::before {
+        content: 'Save to';
+    }
+
+    .backpack.dropzone.closed {
+        right: -250px;
+    }
+
+    .backpack.dropzone.hover .animation {
+        animation: sxt-play-anim-hover 0.91s steps(21);
+        animation-fill-mode: forwards;
+        background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center;
+    }
+
+    @keyframes sxt-play-anim-hover {
+        from {
+            background-position: 0px;
+        }
+        to {
+            background-position: -5250px;
+        }
+    }
+
+    .backpack.dropzone.saving .title::before {
+        content: 'Saving to';
+    }
+
+    .backpack.dropzone.saving .animation {
+        background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saving_loop.png") left center;
+        animation: sxt-play-anim-saving steps(59) 2.46s infinite;
+    }
+
+    @keyframes sxt-play-anim-saving {
+        100% {
+            background-position: -14750px;
+        }
+    }
+
+    .backpack.dropzone.saved .title::before {
+        content: 'Saved to';
+    }
+
+    .backpack.dropzone.saved .animation {
+        background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saved.png") left center;
+        animation: sxt-play-anim-saved steps(20) 0.83s forwards;
+    }
+
+    @keyframes sxt-play-anim-saved {
+        100% {
+            background-position: -5000px;
+        }
+    }
+    </style>
+    <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+    .en-markup-crop-options {
+        top: 18px !important;
+        left: 50% !important;
+        margin-left: -100px !important;
+        width: 200px !important;
+        border: 2px rgba(255, 255, 255, .38) solid !important;
+        border-radius: 4px !important;
+    }
+
+    .en-markup-crop-options div div:first-of-type {
+        margin-left: 0px !important;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">ナビゲーションの表示を切り替え</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="http://www.kyodaimap.net/"><h1><img
+                            src="../../../../../../kkouh/Downloads/京大マップ_files/logo.png"
+                            srcset="/static/images/logo%402x.png 2x" alt="京大マップ"></h1></a>
+
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="http://www.kyodaimap.net/#features">機能</a></li>
+                        <li><a href="http://www.kyodaimap.net/#lineup">ラインナップ</a></li>
+                        <li><a href="http://www.kyodaimap.net/#news">お知らせ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="contents">
+        <div id="top-carousel" class="carousel slide" data-ride="carousel" style="margin-left: -15px;">
+            <ol class="carousel-indicators">
+                <li data-target="#top-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#top-carousel" data-slide-to="1" class=""></li>
+                <li data-target="#top-carousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/2.jpg" alt="背景画像">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-sm-7 col-xs-12">
+                                <p>新入生に嬉しい新歓情報<br>誰でも無料で投稿出来ます</p>
+                                <div class="hidden-xs">
+                                    <a href="https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4"
+                                       target="_blank">
+                                        <img class="appstore-badge"
+                                             src="../../../../../../kkouh/Downloads/京大マップ_files/appstore.svg"
+                                             alt="Download on the App Store">
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=net.kyodaimap.android"
+                                       target="_blank">
+                                        <img class="play-badge"
+                                             src="../../../../../../kkouh/Downloads/京大マップ_files/play.svg"
+                                             alt="Get it on Google Play">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 hidden-xs carousel-caption-right">
+                                <img class="hero" src="../../../../../../kkouh/Downloads/京大マップ_files/hero8.png"
+                                     srcset="/static/images/carousel/hero8%402x.png 2x" alt="京大マップ for iOS 地図画面">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/1.jpg" alt="背景画像">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-sm-7 col-xs-12">
+                                <p>京大生のための<br>情報共有地図アプリ</p>
+                                <div class="hidden-xs">
+                                    <a href="https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4"
+                                       target="_blank">
+                                        <img class="appstore-badge"
+                                             src="../../../../../../kkouh/Downloads/京大マップ_files/appstore.svg"
+                                             alt="Download on the App Store">
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=net.kyodaimap.android"
+                                       target="_blank">
+                                        <img class="play-badge"
+                                             src="../../../../../../kkouh/Downloads/京大マップ_files/play.svg"
+                                             alt="Get it on Google Play">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 hidden-xs carousel-caption-right">
+                                <img class="hero" src="../../../../../../kkouh/Downloads/京大マップ_files/hero9.png"
+                                     srcset="/static/images/carousel/hero9%402x.png 2x" alt="京大マップ for Android イベント画面">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/3.jpg" alt="背景画像">
+                    <div class="carousel-caption">
+                        <div class="row">
+                            <div class="col-sm-7 col-xs-12">
+                                <p>Apple Watch にも対応した<br>京大マップ</p>
+                                <div class="hidden-xs">
+                                    <a href="https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4&amp;media=watch"
+                                       target="_blank">
+                                        <img class="appstore-badge"
+                                             src="../../../../../../kkouh/Downloads/京大マップ_files/appstore.svg"
+                                             alt="Download on the App Store">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 hidden-xs carousel-caption-right">
+                                <img class="hero" src="../../../../../../kkouh/Downloads/京大マップ_files/hero7.png"
+                                     srcset="/static/images/carousel/hero7%402x.png 2x" alt="京大マップ for Apple Watch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="http://www.kyodaimap.net/#top-carousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="http://www.kyodaimap.net/#top-carousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+        <div id="index-badges" class="visible-xs text-center">
+            <a href="https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4" target="_blank">
+                <img src="../../../../../../kkouh/Downloads/京大マップ_files/appstore.svg" alt="Download on the App Store">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=net.kyodaimap.android" target="_blank">
+                <img src="../../../../../../kkouh/Downloads/京大マップ_files/play.svg" alt="Get it on Google Play">
+            </a>
+            <hr>
+        </div>
+        <div id="features" class="index-section">
+            <h2 class="text-center">機能<br>
+                <small>Features</small>
+            </h2>
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/4.jpg"
+                         srcset="/static/images/features/4%402x.jpg 2x" alt="地図画面スクリーンショット">
+                    <h3 class="text-center">地図から一目で</h3>
+                    <p>
+                        地図から建物や教室を検索することができます。もう広いキャンパスで迷うことはありません。新歓やセミナーなど様々なイベントが地図上に表示されています。スマートフォンを片手に興味の赴くイベントに足を運んでみましょう。
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/5.jpg"
+                         srcset="/static/images/features/5%402x.jpg 2x" alt="地図検索画面スクリーンショット">
+                    <h3 class="text-center">充実した情報</h3>
+                    <p>
+                        京大マップは学内の建物や教室の情報を網羅しており、学内で行われるあらゆるイベント情報がアプリ内で共有されています。吉田・桂・宇治の3キャンパスに対応し、アプリ内で切り替えることが可能です。
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="../../../../../../kkouh/Downloads/京大マップ_files/6.jpg"
+                         srcset="/static/images/features/6%402x.jpg 2x" alt="イベント詳細画面スクリーンショット">
+                    <h3 class="text-center">新たな告知ツール</h3>
+                    <p>
+                        京大マップでは誰でも手軽にイベントを投稿することができます。投稿されたイベントをTwitterやFacebookで共有することもできます。大量のビラを配布することなく、多くの学生にイベントの告知ができます。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="lineup" class="index-section">
+            <h2 class="text-center">ラインナップ<br>
+                <small>Lineup</small>
+            </h2>
+            <div class="row">
+                <div class="col-sm-4">
+                    <img class="hidden-xs" src="../../../../../../kkouh/Downloads/京大マップ_files/ios2.jpg"
+                         srcset="/static/images/lineup/ios2%402x.jpg 2x" alt="京大マップ for iOS">
+                    <h3 class="text-center">京大マップ for iOS</h3>
+                    <p>
+                        iOS に最適化された機能と操作性。最新の iPhone と Apple Watch にも対応。
+                        iOS 8.0 以上の端末でご利用いただけます。
+                    </p>
+                    <p>
+                        <a href="https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4"
+                           target="_blank">
+                            <img class="appstore-badge" src="../../../../../../kkouh/Downloads/京大マップ_files/appstore.svg"
+                                 alt="Download on the App Store">
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <img class="hidden-xs" src="../../../../../../kkouh/Downloads/京大マップ_files/android5.jpg"
+                         srcset="/static/images/lineup/android5%402x.jpg 2x" alt="京大マップ for Android">
+                    <h3 class="text-center">京大マップ for Android</h3>
+                    <p>
+                        Android 4.0 以上に対応。Material Design を採用してより使いやすくなりました。
+                        多くの Android 端末でご利用いただけます。
+                    </p>
+                    <p>
+                        <a href="https://play.google.com/store/apps/details?id=net.kyodaimap.android" target="_blank">
+                            <img class="play-badge" src="../../../../../../kkouh/Downloads/京大マップ_files/play.svg"
+                                 alt="Get it on Google Play">
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <img class="hidden-xs" src="../../../../../../kkouh/Downloads/京大マップ_files/web.jpg"
+                         srcset="/static/images/lineup/web%402x.jpg 2x" alt="京大マップ Web">
+                    <h3 class="text-center">京大マップ Web</h3>
+                    <p>
+                        スマートフォンや PC, Mac 等の Web ブラウザからご利用いただけます。
+                        スマートフォンをお持ちでない方や、アプリを持っていない方に情報を伝えるのに便利です。
+                    </p>
+                    <p class="text-center">
+                        <a class="btn btn-primary btn-lg" href="https://web.kyodaimap.net/" target="_blank">京大マップWeb</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="news" class="index-section">
+            <h2 class="text-center">お知らせ<br>
+                <small>News</small>
+            </h2>
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <h3 class="text-center">京大マップ for iOS 5.3.0 をリリース<br>
+                        <small>2017/4/7 13:30</small>
+                    </h3>
+                    <p>京大マップ for iOS 5.3.0 をリリースしました。<br><br>iOS 10.3・watchOS 3.2
+                        に対応するアップデートです。<br>その他、バグの修正を行っています。<br><br>アップデー...</p>
+                    <p class="text-center"><a href="http://www.kyodaimap.net/news/ios-5-3-0/">続きを読む</a></p>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3 class="text-center">京大マップ for iOS 5.2.0 をリリース<br>
+                        <small>2017/1/20 15:30</small>
+                    </h3>
+                    <p>京大マップ for iOS 5.2.0 をリリースしました。<br><br>iOS 10.2
+                        に対応するアップデートです。<br>その他、バグの修正やアプリの最適化を行っています。<br><br>アップデート内容<br>...</p>
+                    <p class="text-center"><a href="http://www.kyodaimap.net/news/ios-5-2-0/">続きを読む</a></p>
+                </div>
+
+                <div class="col-sm-4">
+                    <h3 class="text-center">京大マップ for iOS 5.1.0 をリリース<br>
+                        <small>2016/11/3 16:00</small>
+                    </h3>
+                    <p>京大マップ for iOS 5.1.0 をリリースしました。<br><br>iOS 10.1・watchOS 3.1 に対応するアップデートです。<br>その他、デザインの調整やアプリの最適化を行っています...
+                    </p>
+                    <p class="text-center"><a href="http://www.kyodaimap.net/news/ios-5-1-0/">続きを読む</a></p>
+                </div>
+
+            </div>
+        </div>
+        <div id="social" class="index-section">
+            <div class="row text-center">
+                <a class="btn btn-social btn-twitter" href="https://twitter.com/kyodai_map" target="_blank">
+                    <i class="fa fa-twitter"></i> 京大マップの Twitter ページ
+                </a>
+                <span class="visible-xs"><br></span>
+                <a class="btn btn-social btn-facebook" href="https://www.facebook.com/kyodaimap" target="_blank">
+                    <i class="fa fa-facebook"></i> 京大マップの Facebook ページ
+                </a>
+            </div>
+        </div>
+        <script async="" src="../../../../../../kkouh/Downloads/京大マップ_files/analytics.js.ダウンロード"></script>
+        <script type="application/ld+json">
+    [
+      {
+        "@context": "http://schema.org",
+        "@type": "MobileApplication",
+        "name": "京大マップ",
+        "operatingSystem": "Android",
+        "applicationCategory": "旅行&地域",
+        "installUrl": "https://play.google.com/store/apps/details?id=net.kyodaimap.android",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        }
+      },
+      {
+        "@context": "http://schema.org",
+        "@type": "MobileApplication",
+        "name": "京大マップ",
+        "operatingSystem": "iOS",
+        "applicationCategory": "ナビゲーション",
+        "installUrl": "https://itunes.apple.com/jp/app/jing-damappu/id564477827?mt=8&amp;uo=4",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "JPY"
+        }
+      }
+    ]
+
+        </script>
+    </div>
+    <footer>
+        <hr>
+        <nav>
+            <ul class="nav nav-pills">
+                <li><a href="http://www.unimap.co.jp/" target="_blank">運営会社</a></li>
+                <li><a href="http://www.kyodaimap.net/about/">京大マップについて</a></li>
+                <li><a href="http://www.kyodaimap.net/support/">サポート・お問い合わせ</a></li>
+                <li><a href="http://www.kyodaimap.net/terms/">利用規約</a></li>
+                <li><a href="http://www.unimap.co.jp/privacy/" target="_blank">プライバシーポリシー</a></li>
+            </ul>
+        </nav>
+        <hr>
+        <div class="text-center">
+            Copyright © 2012-2016 Unimap, Inc. All rights reserved.
+        </div>
+    </footer>
+    <script type="text/javascript" src="../../../../../../kkouh/Downloads/京大マップ_files/5e9564dde037.js.ダウンロード"></script>
+
+    <script type="text/javascript">$(".navbar a").smoothScroll();</script>
+
+
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-34862810-3', 'kyodaimap.net');
+        ga('send', 'pageview');
+    </script>
+
+</div>
+
+
+</body>
+</html>

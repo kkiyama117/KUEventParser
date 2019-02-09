@@ -1,63 +1,64 @@
 # event-parser
 イベント情報が載っているウェブページから情報を抽出し、京大マップへ投稿しやすいデータ形式に変換するパッケージ。
 
-## 使い方
-### インストール
+## Usage
+### install
 ```bash
 virtualenv venv
 source venv/bin/activate
+# plz use setuptools 38 or newer version.
+pip install -U setuptools 
+```
+`pip` を利用する場合(主にインストールした後バージョン管理をpipでしたい人向け)
+```bash
+# by pip 
 pip install -e .
 ```
-
-### アップデート
+`setuptools` を利用する場合(pipを利用しない場合)
 ```bash
-pip install -U -e .
+# by setuptools
+python setup.py install
+```
+update や uninstall は各ツールのhelpを見るなどするか,
+詳細ドキュメント(下記)を見てください.
+
+### run script
+```bash
+parse-event [-h] [--help]
 ```
 
-### 京大公式 `eventparser.kyoto_u`
-#### 指定年月のイベントURLリストを取得 `get_event_list`
+## Docs
+### `get_events`
 ```python
-from datetime import date
-from eventparser.kyoto_u import get_event_list
-
-august = date(2014, 8, 1)
-urls = get_event_list(august)
+from src.api import get_events
+get_events()
 ```
-`urls`は2014年8月の行事カレンダーに載っているイベントのURL(`str`)のリスト。
-
-#### イベントURLからイベント情報抽出 `get_event`
+`event`は指定URLのイベントページから抽出したイベント情報(`Event`)で、以下の構造になっている。
 ```python
-from eventparser.kyoto_u import get_event
+class Event:
+    """イベント情報を含んだclass
+    """
 
-event = get_event("http://www.kyoto-u.ac.jp/ja/news_data/h/h1/news4/2013_1/140801_1.htm")
+    def __init__(self, name:str, url: str, location: str, description: str, date: datetime.date,
+                 start: datetime.time,
+                 end: datetime.time, **kargs):
+        """イニシャライザー
+        
+        Args:
+            name: イベント名
+            url: イベント情報のURL
+            location: 開催地
+            description: 詳細説明文
+            date: 開催日
+            start: 開始時間
+            end: 終了時間
+        """
 ```
-`event`は指定URLのイベントページから抽出したイベント情報(`dict`)で、以下の構造になっている。
-```json
-{
-    "event": {
-        "name": "第51回品川セミナー",
-        "location": "東京オフィス",
-        "start": 2014-08-01 17:30:00+09:00,
-        "end": 2014-08-01 19:00:00+09:00,
-        "description": <省略>,
-        "url": "http://www.kyoto-u.ac.jp/ja/news_data/h/h1/news4/2013_1/140801_1.htm"
-    },
-    "source": {
-        "url": "http://www.kyoto-u.ac.jp/ja/news_data/h/h1/news4/2013_1/140801_1.htm",
-        "body": <省略>
-    }
-}
-```
-`start`, `end`は`datetime.date`オブジェクトが入る。
-`description`にはイベント詳細文、`body`には抽出元のイベントページの内容が文字列として入っている。
 
-`get_event`は
+### detail
+より正確なドキュメント群は[sphinx](http://www.sphinx-doc.org/ja/stable/index.html)で書かれている.
+
 ```bash
-kyoto_u http://www.kyoto-u.ac.jp/ja/news_data/h/h1/news4/2013_1/140801_1.htm
-```
-で動作確認することもできる。
-
-### テスト
-```bash
-python setup.py test
+python setup.py build_sphinx
+# /docs/build/html/ にドキュメントが作成される.
 ```

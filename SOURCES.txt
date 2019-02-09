@@ -1,0 +1,17 @@
+README.md
+main.py
+setup.cfg
+setup.py
+eventparser.egg-info/PKG-INFO
+eventparser.egg-info/SOURCES.txt
+eventparser.egg-info/dependency_links.txt
+eventparser.egg-info/entry_points.txt
+eventparser.egg-info/requires.txt
+eventparser.egg-info/top_level.txt
+src/__init__.py
+src/api.py
+src/core.py
+src/events.py
+src/utils.py
+tests/__init__.py
+tests/test_utils.py
