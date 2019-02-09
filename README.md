@@ -4,7 +4,8 @@
 ## Usage
 ### install
 ```bash
-virtualenv venv
+# 任意のPython3.4以上の環境で構いません
+python -m venv .venv
 source venv/bin/activate
 # plz use setuptools 38 or newer version.
 pip install -U setuptools 
@@ -59,6 +60,7 @@ class Event:
 より正確なドキュメント群は[sphinx](http://www.sphinx-doc.org/ja/stable/index.html)で書かれている.
 
 ```bash
-python setup.py build_sphinx
 # /docs/build/html/ にドキュメントが作成される.
+cd docs
+python make_docs.py
 ```
