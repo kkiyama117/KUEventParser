@@ -41,7 +41,7 @@ def eventparser(manager, **kwargs):
         _date = datetime.date(year, month, 1)
     else:
         _date = date
-    return manager.get_events(_date)
+    return _manager.get_events(_date)
 
 
 def main():
