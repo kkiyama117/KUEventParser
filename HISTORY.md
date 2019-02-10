@@ -4,8 +4,10 @@ Release History
 
 dev
 ---
+- Update History
+- Update Documentacions
 
-1.2.1 (2019-02-10)
+1.2.3 (2019-02-11)
 ------------------
 **New Features**
 Enable to use as script 'parse_event'
@@ -14,7 +16,7 @@ Enable to use as script 'parse_event'
 Fix setup.py to use as script
 
 
-1.2.1 (2019-02-10)
+1.2.1 (2019-02-11)
 ------------------
 **Improvements**
 - Update api
