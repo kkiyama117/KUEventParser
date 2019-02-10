@@ -64,7 +64,8 @@ requires = [
 
 test_requirements = [
     'pytest',
-    'pytest-cov'
+    'pytest-cov',
+    'tox'
 ]
 
 about = {}
@@ -118,7 +119,7 @@ setup(
     cmdclass={'test': PyTest},
     tests_require=test_requirements,
     extras_require={
-        'test': ['pytest'],
+        'test': ['pytest', 'tox'],
     },
 
 )
