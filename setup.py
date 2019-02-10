@@ -13,6 +13,7 @@ from setuptools.command.test import test as TestCommand
 
 here = os.path.abspath(os.path.dirname(__file__))
 
+
 class PyTest(TestCommand):
     """ PyTestを実行するコマンドの実装
 
@@ -36,6 +37,7 @@ class PyTest(TestCommand):
         import pytest
         errno = pytest.main(self.pytest_args)
         sys.exit(errno)
+
 
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == 'publish':
@@ -95,8 +97,8 @@ setup(
     license=about['__license__'],
     zip_safe=False,
     classifiers=[
-        'Development Status :: 4 - Beta',
-        # 'Development Status :: 5 - Production/Stable',
+        # 'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Plugins',
         'Environment :: Console',
         'Intended Audience :: Developers',
@@ -120,4 +122,3 @@ setup(
     },
 
 )
-
