@@ -53,7 +53,7 @@ if sys.argv[-1] == 'publish_test':
     os.system('twine upload --repository pypitest dist/*')
     sys.exit()
 
-packages = ['kueventparser']
+packages = ['kueventparser','kueventparser.adapters']
 
 requires = [
     'beautifulsoup4',
