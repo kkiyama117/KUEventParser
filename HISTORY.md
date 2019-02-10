@@ -7,6 +7,15 @@ dev
 
 1.2.1 (2019-02-10)
 ------------------
+**New Features**
+Enable to use as script 'parse_event'
+
+**Bugfixes**
+Fix setup.py to use as script
+
+
+1.2.1 (2019-02-10)
+------------------
 **Improvements**
 - Update api
 - Update core and scripts
