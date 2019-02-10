@@ -5,10 +5,11 @@
 """
 import datetime
 
-from . import events
+from kueventparser.adapters.base import EventManagerMixin
+from kueventparser.adapters.official import KUEventManager
 
 
-def eventparser(manager, *, date, year, month):
+def eventparser(manager: EventManagerMixin, *, date, year, month):
     """hook to call event list factory
 
     Args:
@@ -21,11 +22,10 @@ def eventparser(manager, *, date, year, month):
 
     Returns:
         list: list of event
-
     """
     if manager == 'official':
-        _manager = events.KUEventManager
-    elif isinstance(manager, events.KUEventManager):
+        _manager = KUEventManager
+    elif isinstance(manager, EventManagerMixin):
         _manager = manager
     else:
         raise ValueError
@@ -37,7 +37,7 @@ def eventparser(manager, *, date, year, month):
     return event_list_factory(manager=_manager)
 
 
-def event_list_factory(*, manager: events.KUEventManager = None,
+def event_list_factory(*, manager: KUEventManager = None,
                        year: int = datetime.date.today().year,
                        month: int = datetime.date.today().month,
                        date: datetime.date = None, **kargs):
@@ -56,7 +56,6 @@ def event_list_factory(*, manager: events.KUEventManager = None,
         list: list of `Event` (HTML取得に失敗した時はStopIteration例外)
     """
 
-    events = []
     # datetimeを渡されたとき
     if date is not None:
         _date = date
