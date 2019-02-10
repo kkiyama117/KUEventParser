@@ -5,7 +5,7 @@ Release History
 dev
 ---
 
-1.1.2 (2019-02-10)
+1.2.1 (2019-02-10)
 ------------------
 **Improvements**
 - Update api
