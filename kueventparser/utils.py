@@ -27,7 +27,7 @@ def url_to_soup(url: str) -> BeautifulSoup:
     return soup
 
 
-def parse_time(time_text: str):
+def parse_str_to_time(time_text: str):
     """京大イベントページで見られる形式の時刻文字列をdatetimeに変換する
 
     'n時m分～k時l分' の形をとるものを処理する.

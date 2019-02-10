@@ -116,6 +116,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
         'Topic :: Utilities'
     ],
+    entry_points={
+        'console_scripts': ['parse_event= kueventparser.core:main']
+    },
     cmdclass={'test': PyTest},
     tests_require=test_requirements,
     extras_require={

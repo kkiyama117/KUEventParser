@@ -5,7 +5,7 @@ import bs4
 
 from kueventparser.adapters.base import EventManagerMixin
 from kueventparser.events import Event
-from kueventparser.utils import url_to_soup, parse_time
+from kueventparser.utils import url_to_soup, parse_str_to_time
 
 
 class KUEventManager(EventManagerMixin):
@@ -71,7 +71,7 @@ class KUEventManager(EventManagerMixin):
             "h1", class_="title").stripped_strings.__next__()
         location = cls.__find_location(soup)
         description = cls.__find_description(soup)
-        time_data = parse_time(cls.__find_time(soup))
+        time_data = parse_str_to_time(cls.__find_time(soup))
         start = time_data["start"]
         end = time_data["end"]
 

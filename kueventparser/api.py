@@ -13,18 +13,19 @@ Example:
 
 詳細は各関数のdocstringを参照.
 """
+import datetime
+
 from . import core
 
 
-def get_events(manager='official', *, date=None, year: int = None,
-               month: int = None) -> list:
+def get_events(manager='official', **kwargs) -> list:
     """Construscts and return an list of Class `Event`.
 
     hookを呼び出す.
 
     Args:
         manager : `Event` の取得用マネージャ 今のところ,京大公式HP用のみ.
-            "official" のみ使用可能.
+            EventManagerMixin classを継承したクラスか 'official' に対応
         date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
             `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
         year (int, optional): イベントを取得する年.
@@ -35,4 +36,4 @@ def get_events(manager='official', *, date=None, year: int = None,
     Returns:
         list: list of :obj:`kueventparser.events.Event`
     """
-    return core.eventparser(manager=manager, date=date, year=year, month=month)
+    return core.eventparser(manager=manager, **kwargs)

@@ -11,15 +11,15 @@ def test_parse_time():
 
     case_out = {"start": dt.time(12, 10, tzinfo=jst),
                 "end":   dt.time(12, 50, tzinfo=jst)}
-    assert utils.parse_time(case_in_1) == case_out
+    assert utils.parse_str_to_time(case_in_1) == case_out
 
     case_out = {"start": dt.time(17, 30, tzinfo=jst),
                 "end":   dt.time(19, 0, tzinfo=jst)}
-    assert utils.parse_time(case_in_2) == case_out
+    assert utils.parse_str_to_time(case_in_2) == case_out
 
     case_out = {"start": dt.time(15, 0, tzinfo=jst),
                 "end":   dt.time(15, 0, tzinfo=jst)}
-    assert utils.parse_time(case_in_3) == case_out
+    assert utils.parse_str_to_time(case_in_3) == case_out
 
 
 def test_url_to_soup():

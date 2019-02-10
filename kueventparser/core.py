@@ -1,4 +1,6 @@
+#!python3
 # -*- coding: utf-8 -*-
+
 """京大のイベント
 
 京大の行事カレンダーから指定日のイベントを作成する.
@@ -9,61 +11,57 @@ from kueventparser.adapters.base import EventManagerMixin
 from kueventparser.adapters.official import KUEventManager
 
 
-def eventparser(manager: EventManagerMixin, *, date, year, month):
+def eventparser(manager, **kwargs):
     """hook to call event list factory
+    月ごとのイベントのリストを作る
 
     Args:
         manager: :obj:`kueventparser.events.EventManager` or :obj:`str`
-        date(:obj:`datetime.date`): イベントを取得したい月.
-        year (int): イベントを取得したい年.
-            デフォルトは今年.(次の月でないことに注意)
-        month (int): イベントを取得したい月.
-            デフォルトは今月.
+        date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
+            `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
+        year (int, optional): イベントを取得する年.
+            両方指定した場合, `date` が優先される.
+        month (int, optional): イベントを取得する月.
+            両方指定した場合, `date` が優先される
 
     Returns:
-        list: list of event
+        list: list of event (HTML取得に失敗した時はStopIteration例外)
     """
+    date = kwargs.get('data', datetime.date.today())
+    year = kwargs.get('year', None)
+    month = kwargs.get('month', None)
     if manager == 'official':
         _manager = KUEventManager
     elif isinstance(manager, EventManagerMixin):
         _manager = manager
     else:
         raise ValueError
-    if date is not None:
-        return event_list_factory(manager=_manager, date=date)
-    elif year is not None:
-        if month is not None:
-            return event_list_factory(manager=_manager, year=year, month=month)
-    return event_list_factory(manager=_manager)
 
-
-def event_list_factory(*, manager: KUEventManager = None,
-                       year: int = datetime.date.today().year,
-                       month: int = datetime.date.today().month,
-                       date: datetime.date = None, **kargs):
-    """月ごとのイベントのリストを作る
-
-    Args:
-        manager(:obj:`kueventparser.events.KUEventManager`):
-        date(:obj:`datetime.date`): イベントを取得したい月. 日付は無視される.
-        year (int): イベントを取得したい年.
-            デフォルトは今年.(次の月でないことに注意)
-
-        month (int): イベントを取得したい月.
-            デフォルトは今月.
-
-    Returns:
-        list: list of `Event` (HTML取得に失敗した時はStopIteration例外)
-    """
-
-    # datetimeを渡されたとき
-    if date is not None:
-        _date = date
-    # 12月以外なら
-    elif month is not None:
+    if (year is not None) and (month is not None):
         _date = datetime.date(year, month, 1)
     else:
-        raise ValueError
-    # 月の全てのイベントを日ごとに取得
-    events = manager.get_events(_date)
-    return events
+        _date = date
+    return manager.get_events(_date)
+
+
+def main():
+    """スクリプトとして実行したとき,実際に実行される関数
+
+    `argparse` を用いた.
+    `get_events` を呼び出すだけ.
+    """
+    import argparse
+
+    parser = argparse.ArgumentParser(description='event parser of kyoto Univ.')
+    parser.add_argument('manager', default='official', nargs='?',
+                        const="official", type=str, choices=None,
+                        action='store',
+                        help="Manager for parsing Events from any homepages ",
+                        metavar=None)
+    args = parser.parse_args()
+    for event in eventparser(manager=args.manager):
+        print(event)
+
+
+if __name__ == '__main__':
+    main()
