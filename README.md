@@ -25,7 +25,7 @@ update や uninstall は各ツールのhelpを見るなどするか,
 
 ### run script
 ```bash
-parse-event [-h] [--help]
+parse_event [-h] [--help]
 ```
 
 ## Docs
