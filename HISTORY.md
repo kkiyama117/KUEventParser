@@ -7,6 +7,12 @@ dev
 
 1.1.2 (2019-02-10)
 ------------------
+**Improvements**
+- Update api
+- Update core and scripts
+
+1.1.2 (2019-02-10)
+------------------
 **Bugfixes**
 - fix tests/tests_utils.py
 - fix setup.py to enable "setup.py test"

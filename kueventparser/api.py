@@ -13,7 +13,6 @@ Example:
 
 詳細は各関数のdocstringを参照.
 """
-import datetime
 
 from . import core
 
