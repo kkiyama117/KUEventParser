@@ -12,7 +12,7 @@ def eventparser(manager, *, date, year, month):
     """hook to call event list factory
 
     Args:
-        manager: :obj:`src.events.EventManager` or :obj:`str`
+        manager: :obj:`kueventparser.events.EventManager` or :obj:`str`
         date(:obj:`datetime.date`): イベントを取得したい月.
         year (int): イベントを取得したい年.
             デフォルトは今年.(次の月でないことに注意)
@@ -44,7 +44,7 @@ def event_list_factory(*, manager: events.KUEventManager = None,
     """月ごとのイベントのリストを作る
 
     Args:
-        manager(:obj:`src.events.KUEventManager`):
+        manager(:obj:`kueventparser.events.KUEventManager`):
         date(:obj:`datetime.date`): イベントを取得したい月. 日付は無視される.
         year (int): イベントを取得したい年.
             デフォルトは今年.(次の月でないことに注意)

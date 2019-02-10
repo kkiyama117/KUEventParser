@@ -1,6 +1,7 @@
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
-from src.api import get_events
+from . import api
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
                         help="Manager for parsing Events from any homepages ",
                         metavar=None)
     args = parser.parse_args()
-    for event in get_events(manager=args.manager):
+    for event in api.get_events(manager=args.manager):
         print(event)
 
 

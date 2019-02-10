@@ -1,5 +1,5 @@
 # content of conftest.py
-from src import events
+from kueventparser import events
 
 
 def make_test_event(uri: str, ) -> events.Event:

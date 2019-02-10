@@ -1,13 +1,13 @@
-""" 'obj:src.events' のテスト
+""" 'obj:kueventparser.events' のテスト
 """
 from os import path
 
-from src import events
+from kueventparser import events
 from tests import conftest
 
 
 class Test_KUEventManager:
-    """ 'obj:src.events.KUEventManager' のテスト
+    """ 'obj:kueventparser.events.KUEventManager' のテスト
     """
 
     def test_get_events_urls(self):

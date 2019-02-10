@@ -1,0 +1,11 @@
+__title__ = 'kueventparser'
+__description__ = 'event parser of kyoto-univ.'
+__url__ = 'https://github.com/kkiyama117/KUEventParser'
+__version__ = '1.0.1'
+__build__ = 0x01001
+__author__ = 'kkiyama117'
+__author_email__ = 'k.kiyama117@gmail.com'
+__maintainer__=' Unimap, Inc.'
+__maintainer_email__ = 'info@unimap.co.jp'
+__license__ = 'Apache2'
+__copyright__ = 'Copyright 2019 kkiyama117'

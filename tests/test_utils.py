@@ -1,4 +1,4 @@
-from src import utils
+from kueventparser import utils
 
 
 def test_parse_time():

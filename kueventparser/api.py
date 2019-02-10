@@ -33,6 +33,6 @@ def get_events(manager='official', *, date=None, year: int = None,
             両方指定した場合, `date` が優先される.
 
     Returns:
-        list: list of :obj:`src.events.Event`
+        list: list of :obj:`kueventparser.events.Event`
     """
     return core.eventparser(manager=manager, date=date, year=year, month=month)
