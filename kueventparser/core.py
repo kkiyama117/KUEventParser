@@ -10,15 +10,23 @@ import datetime
 from kueventparser.adapters.base import EventFactoryMixin
 from kueventparser.adapters.official import OfficialEventFactory
 
-def selectparser(manager):
-    pass
 
-def eventparser(manager, **kwargs):
+def select_factory(factory):
+    if type(factory) is str:
+        if factory == 'official':
+            return OfficialEventFactory
+    elif isinstance(factory, EventFactoryMixin):
+        return factory
+    else:
+        raise ValueError
+
+
+def event_parser(factory, **kwargs):
     """hook to call event list factory
     月ごとのイベントのリストを作る
 
     Args:
-        manager: :obj:`kueventparser.events.EventManager` or :obj:`str`
+        factory: :obj:`kueventparser.events.EventManager` or :obj:`str`
         date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
             `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
         year (int, optional): イベントを取得する年.
@@ -32,18 +40,12 @@ def eventparser(manager, **kwargs):
     date = kwargs.get('data', datetime.date.today())
     year = kwargs.get('year', None)
     month = kwargs.get('month', None)
-    if manager == 'official':
-        _manager = OfficialEventFactory
-    elif isinstance(manager, EventFactoryMixin):
-        _manager = manager
-    else:
-        raise ValueError
 
     if (year is not None) and (month is not None):
         _date = datetime.date(year, month, 1)
     else:
         _date = date
-    return _manager.get_events(_date)
+    return select_factory(factory).get_events(_date)
 
 
 def main():
@@ -58,10 +60,10 @@ def main():
     parser.add_argument('manager', default='official', nargs='?',
                         const="official", type=str, choices=None,
                         action='store',
-                        help="Manager for parsing Events from any homepages ",
+                        help="Manager for parsing Events from any homepages 'official' etc",
                         metavar=None)
     args = parser.parse_args()
-    for event in eventparser(manager=args.manager):
+    for event in event_parser(factory=args.manager):
         print(event)
 
 

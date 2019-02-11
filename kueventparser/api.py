@@ -18,7 +18,7 @@ from . import core
 
 
 def get_events(manager='official', **kwargs) -> list:
-    """Construscts and return an list of Class `Event`.
+    """Construct and return an list of Class `Event`.
 
     hookを呼び出す.
 
@@ -35,4 +35,4 @@ def get_events(manager='official', **kwargs) -> list:
     Returns:
         list: list of :obj:`kueventparser.events.Event`
     """
-    return core.eventparser(manager=manager, **kwargs)
+    return core.event_parser(factory=manager, **kwargs)
