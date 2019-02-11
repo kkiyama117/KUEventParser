@@ -3,12 +3,12 @@ import datetime
 
 import bs4
 
-from kueventparser.adapters.base import EventManagerMixin
+from kueventparser.adapters.base import EventFactoryMixin
 from kueventparser.events import Event
 from kueventparser.utils import url_to_soup, parse_str_to_time
 
 
-class KUEventManager(EventManagerMixin):
+class OfficialEventFactory(EventFactoryMixin):
     """イベントの管理クラス
 
     後ほど京大公式以外のHPからスクレイビングする時は,

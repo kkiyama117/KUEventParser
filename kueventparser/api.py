@@ -24,7 +24,7 @@ def get_events(manager='official', **kwargs) -> list:
 
     Args:
         manager : `Event` の取得用マネージャ 今のところ,京大公式HP用のみ.
-            EventManagerMixin classを継承したクラスか 'official' に対応
+            EventFactoryMixin classを継承したクラスか 'official' に対応
         date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
             `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
         year (int, optional): イベントを取得する年.

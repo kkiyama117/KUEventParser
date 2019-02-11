@@ -2,12 +2,12 @@
 """
 from os import path
 
-from kueventparser.adapters.official import KUEventManager
+from kueventparser.adapters.official import OfficialEventFactory
 from tests import conftest
 
 
 class Test_KUEventManager:
-    """ 'obj:kueventparser.events.KUEventManager' のテスト
+    """ 'obj:kueventparser.events.OfficialEventFactory' のテスト
     """
 
     def test_get_events_urls(self):
@@ -25,7 +25,7 @@ class Test_KUEventManager:
             assert_urls.append(line)
         # assertion
         foo = date(2018, 1, 1)
-        eve = KUEventManager._get_events_urls(foo)
+        eve = OfficialEventFactory._get_events_urls(foo)
         assert assert_urls == eve[1]
 
     def test_get_event(self):
@@ -36,11 +36,11 @@ class Test_KUEventManager:
                         "test_event1.xml")
         assert_event = conftest.make_test_event(uri)
         # event
-        event = KUEventManager._get_event(url=
+        event = OfficialEventFactory._get_event(url=
                                           "http://www.kyoto-u.ac.jp/ja/"
                                           "social/events_news/department"
                                           "/yasei/events/2017/"
                                           "171030_2140.html",
-                                          date=date(2018, 1, 1))
+                                                date=date(2018, 1, 1))
         # 何故か is が使えないのでクラスの定義から直接判別する.
         assert assert_event.__eq__(event)

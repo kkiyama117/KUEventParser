@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractmethod
 from kueventparser.events import Event
 
 
-class EventManagerMixin(metaclass=ABCMeta):
+class EventFactoryMixin(metaclass=ABCMeta):
     """イベントの管理クラス
 
     後ほど京大公式以外のHPからスクレイビングする時は,

@@ -7,9 +7,11 @@
 """
 import datetime
 
-from kueventparser.adapters.base import EventManagerMixin
-from kueventparser.adapters.official import KUEventManager
+from kueventparser.adapters.base import EventFactoryMixin
+from kueventparser.adapters.official import OfficialEventFactory
 
+def selectparser(manager):
+    pass
 
 def eventparser(manager, **kwargs):
     """hook to call event list factory
@@ -31,8 +33,8 @@ def eventparser(manager, **kwargs):
     year = kwargs.get('year', None)
     month = kwargs.get('month', None)
     if manager == 'official':
-        _manager = KUEventManager
-    elif isinstance(manager, EventManagerMixin):
+        _manager = OfficialEventFactory
+    elif isinstance(manager, EventFactoryMixin):
         _manager = manager
     else:
         raise ValueError

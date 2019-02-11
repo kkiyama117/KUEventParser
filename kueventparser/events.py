@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from . import error
-
 
 class Event:
     """イベント情報を含んだclass
@@ -19,7 +17,7 @@ class Event:
 
     def __init__(self, title: str, url: str, location: str, description: str,
                  date: datetime.date, start: datetime.time,
-                 end: datetime.time, **kargs):
+                 end: datetime.time):
         """イニシャライザー
 
         Args:
@@ -55,8 +53,3 @@ class Event:
             return False
         # __dict__メソッドを使ってattributesを比較
         return self.__dict__ == other.__dict__
-
-
-class EventError(error.MyError):
-    """未実装"""
-    pass
