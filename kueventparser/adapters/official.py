@@ -10,13 +10,14 @@ from kueventparser.utils import url_to_soup, parse_str_to_time
 
 class OfficialEventFactory(EventFactoryMixin):
     """イベントの管理クラス
-
-    後ほど京大公式以外のHPからスクレイビングする時は,
-    このクラスの関数にHP毎の処理を追加する.
     """
 
     @classmethod
-    def get(cls, date):
+    def get(cls, date) -> list:
+        pass
+
+    @classmethod
+    def get_all(cls, date: datetime.date):
         events = []
         for day, urls in cls._get_events_urls(date).items():
             for url in urls:
@@ -29,12 +30,12 @@ class OfficialEventFactory(EventFactoryMixin):
         """京大の行事カレンダーから指定した月のイベントURLリストを作成する
 
         Args:
-            date : 取得するイベントの日付
+            date : 取得するイベントの月(日付は参照されない)
 
         Returns:
             指定のイベントURL (HTML取得に失敗した時はNoneが返ってくる)
         """
-        # template of kyoto univ offical event calender
+        # template of kyoto univ official event calender
         template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
                    "calendar/?year={0}&month={1}"
         url = template.format(date.year, date.month)

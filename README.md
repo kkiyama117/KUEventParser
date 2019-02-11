@@ -29,10 +29,10 @@ parse_event [-h] [--help]
 ```
 
 ## Docs
-### `get`
+### `get_all`
 ```python
-from kueventparser.api import get
-get()
+from kueventparser.api import get_events
+get_events()
 ```
 `event`は指定URLのイベントページから抽出したイベント情報(`Event`)で、以下の構造になっている。
 ```python

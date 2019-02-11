@@ -26,6 +26,31 @@ def select_factory(factory):
         raise ValueError
 
 
+def select_date(**kwargs):
+    """select date from kwargs
+
+    Args:
+        date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
+            `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
+        year (int, optional): イベントを取得する年.
+            両方指定した場合, `date` が優先される.
+        month (int, optional): イベントを取得する月.
+            両方指定した場合, `date` が優先される
+
+    Returns:
+        list: list of event (HTML取得に失敗した時はStopIteration例外)
+    """
+    date = kwargs.get('data', None)
+    year = kwargs.get('year', None)
+    month = kwargs.get('month', None)
+    if (date is not None) and type(date) is datetime.date:
+        return date
+    elif year is not None and month is not None:
+        return datetime.date(year, month, 1)
+    else:
+        return datetime.date.today()
+
+
 def event_parser(factory, **kwargs):
     """hook to call event list factory
     月ごとのイベントのリストを作る
@@ -42,15 +67,9 @@ def event_parser(factory, **kwargs):
     Returns:
         list: list of event (HTML取得に失敗した時はStopIteration例外)
     """
-    date = kwargs.get('data', datetime.date.today())
-    year = kwargs.get('year', None)
-    month = kwargs.get('month', None)
-
-    if (year is not None) and (month is not None):
-        _date = datetime.date(year, month, 1)
-    else:
-        _date = date
-    return select_factory(factory).get(_date)
+    _factory = select_factory(factory)
+    _date = select_date(**kwargs)
+    return _factory.get_all(_date)
 
 
 def main():

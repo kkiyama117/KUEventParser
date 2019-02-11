@@ -24,7 +24,7 @@ class Test_KUEventManager:
         for line in lines:
             assert_urls.append(line)
         # assertion
-        foo = date(2018, 1, 1)
+        foo = date(2019, 2, 1)
         eve = OfficialEventFactory._get_events_urls(foo)
         assert assert_urls == eve[1]
 
