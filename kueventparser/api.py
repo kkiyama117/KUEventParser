@@ -8,7 +8,7 @@ eventそのものを得たい場合,以下の関数を利用する.
 
 Example:
 
-    >>> get_events()
+    >>> get()
     []
 
 詳細は各関数のdocstringを参照.

@@ -131,7 +131,7 @@ packageの中の, apiモジュールがAPIの役割をする.
 .. code-block:: python
 
     import src.api
-    api.get_events(manager: str = 'official', *, date, year: int, month: int)
+    api.get(manager: str = 'official', *, date, year: int, month: int)
 
 .. note::
 

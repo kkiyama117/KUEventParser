@@ -16,7 +16,7 @@ class OfficialEventFactory(EventFactoryMixin):
     """
 
     @classmethod
-    def get_events(cls, date):
+    def get(cls, date):
         events = []
         for day, urls in cls._get_events_urls(date).items():
             for url in urls:

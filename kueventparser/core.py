@@ -12,6 +12,11 @@ from kueventparser.adapters.official import OfficialEventFactory
 
 
 def select_factory(factory):
+    """Choose EventFactory class
+
+    param: factory: str or Class of EventFactory
+    return: Class of EventFactory
+    """
     if type(factory) is str:
         if factory == 'official':
             return OfficialEventFactory
@@ -45,14 +50,14 @@ def event_parser(factory, **kwargs):
         _date = datetime.date(year, month, 1)
     else:
         _date = date
-    return select_factory(factory).get_events(_date)
+    return select_factory(factory).get(_date)
 
 
 def main():
     """スクリプトとして実行したとき,実際に実行される関数
 
     `argparse` を用いた.
-    `get_events` を呼び出すだけ.
+    `get` を呼び出すだけ.
     """
     import argparse
 
