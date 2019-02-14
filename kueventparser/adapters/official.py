@@ -12,9 +12,14 @@ class OfficialEventFactory(EventFactoryMixin):
     """イベントの管理クラス
     """
 
+    # template of kyoto univ official event calender
+    _template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
+                "calendar/?year={0}&month={1}"
+
     @classmethod
-    def get(cls, date) -> list:
-        pass
+    def get(cls, date: datetime) -> Event:
+        for url in cls._get_events_url_daily(date):
+            yield cls._get_event(url=url, date=date)
 
     @classmethod
     def get_all(cls, date: datetime.date):
@@ -28,10 +33,8 @@ class OfficialEventFactory(EventFactoryMixin):
     @staticmethod
     def _get_events_urls(date: datetime.date) -> dict:
         """京大の行事カレンダーから指定した月のイベントURLリストを作成する
-
         Args:
             date : 取得するイベントの月(日付は参照されない)
-
         Returns:
             指定のイベントURL (HTML取得に失敗した時はNoneが返ってくる)
         """

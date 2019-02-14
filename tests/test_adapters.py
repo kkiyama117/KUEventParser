@@ -24,8 +24,8 @@ class Test_KUEventManager:
         for line in lines:
             assert_urls.append(line)
         # assertion
-        foo = date(2019, 2, 1)
-        eve = OfficialEventFactory._get_events_urls(foo)
+        date = date(2019, 2, 1)
+        eve = OfficialEventFactory._get_events_urls(date)
         assert assert_urls == eve[1]
 
     def test_get_event(self):
@@ -37,10 +37,10 @@ class Test_KUEventManager:
         assert_event = conftest.make_test_event(uri)
         # event
         event = OfficialEventFactory._get_event(url=
-                                          "http://www.kyoto-u.ac.jp/ja/"
-                                          "social/events_news/department"
-                                          "/yasei/events/2017/"
-                                          "171030_2140.html",
+                                                "http://www.kyoto-u.ac.jp/ja/"
+                                                "social/events_news/department"
+                                                "/yasei/events/2017/"
+                                                "171030_2140.html",
                                                 date=date(2018, 1, 1))
         # 何故か is が使えないのでクラスの定義から直接判別する.
         assert assert_event.__eq__(event)
