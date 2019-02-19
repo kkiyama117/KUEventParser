@@ -10,24 +10,6 @@ class Test_KUEventManager:
     """ 'obj:kueventparser.events.OfficialEventFactory' のテスト
     """
 
-    def test_get_events_urls(self):
-        from datetime import date
-        # uri
-        uri = path.join(path.dirname(__file__), "data",
-                        "test_eventsmanager1.txt")
-        # 予想結果
-        assert_urls = []
-        # 予想結果の準備
-        with open(uri, encoding="utf-8") as f:
-            data = f.read()
-        lines = data.split('\n')
-        for line in lines:
-            assert_urls.append(line)
-        # assertion
-        date = date(2019, 2, 1)
-        eve = OfficialEventFactory._get_events_urls(date)
-        assert assert_urls == eve[1]
-
     def test_get_event(self):
         from datetime import date
         # assert の準備
