@@ -4,16 +4,26 @@ Release History
 
 dev
 ---
-- Update History
 - Update Documentacions
+
+
+2.0.2 (2019-02-19)
+------------------
+**Bugfixes**
+- Fix error in choice date
+
+2.0.1 (2019-02-19)
+------------------
+**Improvements**
+- Make faster
 
 1.2.3 (2019-02-11)
 ------------------
 **New Features**
-Enable to use as script 'parse_event'
+- Enable to use as script 'parse_event'
 
 **Bugfixes**
-Fix setup.py to use as script
+- Fix setup.py to use as script
 
 
 1.2.1 (2019-02-11)

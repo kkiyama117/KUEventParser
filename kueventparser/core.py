@@ -40,7 +40,7 @@ def select_date(**kwargs):
     Returns:
         list: list of event (HTML取得に失敗した時はStopIteration例外)
     """
-    date = kwargs.get('data', None)
+    date = kwargs.get('date', None)
     year = kwargs.get('year', None)
     month = kwargs.get('month', None)
     if (date is not None) and type(date) is datetime.date:
