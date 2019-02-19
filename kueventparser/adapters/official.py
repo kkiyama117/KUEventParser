@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import calendar
 import datetime
+import re
+from itertools import chain
 
 import bs4
 
@@ -17,42 +20,51 @@ class OfficialEventFactory(EventFactoryMixin):
                 "calendar/?year={0}&month={1}"
 
     @classmethod
-    def get(cls, date: datetime) -> Event:
-        for url in cls._get_events_url_daily(date):
-            yield cls._get_event(url=url, date=date)
+    def get(cls, date: datetime, session=None):
+        return (cls._get_event(url, date) for url in cls._get_events_url_daily(date, session))
 
     @classmethod
-    def get_all(cls, date: datetime.date):
-        events = []
-        for day, urls in cls._get_events_urls(date).items():
-            for url in urls:
-                # make event instance
-                events.append(cls._get_event(url=url, date=datetime.date(date.year, date.month, day)))
-        return events
-
-    @staticmethod
-    def _get_events_urls(date: datetime.date) -> dict:
-        """京大の行事カレンダーから指定した月のイベントURLリストを作成する
-        Args:
-            date : 取得するイベントの月(日付は参照されない)
-        Returns:
-            指定のイベントURL (HTML取得に失敗した時はNoneが返ってくる)
-        """
-        # template of kyoto univ official event calender
+    def generate_all(cls, date: datetime.date):
         template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
                    "calendar/?year={0}&month={1}"
         url = template.format(date.year, date.month)
         # get beautifulsoup object from url
-        soup = url_to_soup(url)
-        urls = {}
+        session = url_to_soup(url)
+        _, last = calendar.monthrange(date.year, date.month)
+        answer = None
+        for day in range(1, last):
+            _date = datetime.date(date.year, date.month, day)
+            events = [cls._get_event(url, _date) for url in
+                      cls._get_events_url_daily(datetime.date(date.year, date.month, day), session=session)]
+            if answer is None:
+                answer = events
+            else:
+                answer = chain(answer, events)
+        return answer
+
+    @classmethod
+    def get_all(cls, date: datetime.date):
+        return list(cls.generate_all(date))
+
+    @classmethod
+    def _get_events_url_daily(cls, date: datetime.date, session=None):
+        """京大の行事カレンダーから指定した月のイベントURLリストを作成する
+
+        Args:
+            date : 取得するイベントの月(日付は参照されない)
+
+        Returns:
+            指定のイベントURL (HTML取得に失敗した時はNoneが返ってくる)
+        """
+        url = cls._template.format(date.year, date.month)
+        # get beautifulsoup object from url or given args
+        soup = url_to_soup(url) if session is None else session
         # get event data from table in HTML
-        for td_day in soup.find_all("td", class_="event_of_day"):
-            day = int(td_day.parent.find(class_="day").string.strip())
-            urls[day] = []
-            for e in td_day.find_all("a"):
-                if e.get("href") is not None:
-                    urls[day].append(e.get("href"))
-        return urls
+        td_day = soup.find('td', class_='day', text=re.compile(str(date.day)))
+        for e in td_day.parent.find(class_='event_of_day').find_all('a'):
+            url = e.get('href')
+            if url is not None:
+                yield url
 
     @classmethod
     def _get_event(cls, url: str, date: datetime.date) -> Event:
