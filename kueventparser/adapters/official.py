@@ -20,14 +20,25 @@ class OfficialEventFactory(EventFactoryMixin):
                 "calendar/?year={0}&month={1}"
 
     @classmethod
-    def get(cls, date: datetime, session=None):
-        return (cls._get_event(url, date) for url in cls._get_events_url_daily(date, session))
+    def get(cls, url: str):
+        date = datetime.date.today()
+        return cls._get_event(url=url, date=date)
+
+    @classmethod
+    def get_all(cls, date: datetime.date):
+        """ get events in month containing date
+
+        Args:
+            date (datetime.date): date to get events including year and month
+
+        Returns:
+            list: `events.Event'
+        """
+        return list(cls.generate_all(date))
 
     @classmethod
     def generate_all(cls, date: datetime.date):
-        template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
-                   "calendar/?year={0}&month={1}"
-        url = template.format(date.year, date.month)
+        url = cls._template.format(date.year, date.month)
         # get beautifulsoup object from url
         session = url_to_soup(url)
         _, last = calendar.monthrange(date.year, date.month)
@@ -41,10 +52,6 @@ class OfficialEventFactory(EventFactoryMixin):
             else:
                 answer = chain(answer, events)
         return answer
-
-    @classmethod
-    def get_all(cls, date: datetime.date):
-        return list(cls.generate_all(date))
 
     @classmethod
     def _get_events_url_daily(cls, date: datetime.date, session=None):

@@ -8,16 +8,21 @@ eventそのものを得たい場合,以下の関数を利用する.
 
 Example:
 
-    >>> get_all()
+    >>> from kueventparser import api
+    >>> api.get_all()
     []
 
 詳細は各関数のdocstringを参照.
 """
 
-from . import core
+from .core import event_parser
 
 
-def get_all(factory='official', **kwargs) -> list:
+def kueventparser(factory, method, **kwargs):
+    return event_parser(factory, method, **kwargs)
+
+
+def get_all(factory='official', **kwargs):
     """Construct and return an list of Class `Event`.
 
     hookを呼び出す.
@@ -33,12 +38,12 @@ def get_all(factory='official', **kwargs) -> list:
             両方指定した場合, `date` が優先される.
 
     Returns:
-        list: list of :obj:`kueventparser.events.Event`
+        generator of Events
     """
-    return core.event_parser(factory=factory, **kwargs)
+    return kueventparser(factory=factory, method='get_all', **kwargs)
 
 
-def get(factory='official', **kwargs) -> list:
+def get(factory='official', **kwargs):
     """Construct and return an list of Class `Event`.
 
     hookを呼び出す.
@@ -46,16 +51,9 @@ def get(factory='official', **kwargs) -> list:
     Args:
         factory: `Event` の取得用マネージャ 今のところ,京大公式HP用のみ.
             EventFactoryMixin classを継承したクラスか 'official' に対応
-        date (:obj:`datetime`, optional): 欲しいイベントのdatetime.
-            `month` , `year` とどちらかを選択.両方指定した場合,こちらが優先される.
-        year (int, optional): イベントを取得する年.
-            両方指定した場合, `date` が優先される.
-        month (int, optional): イベントを取得する月.
-            両方指定した場合, `date` が優先される.
-        day (int, optional): イベントを取得する日.
-            両方指定した場合, `date` が優先される.
+        url: url of event
 
     Returns:
-        list: list of :obj:`kueventparser.events.Event`
+        :obj:`kueventparser.events.Event`: Event
     """
-    return core.event_parser(factory=factory, **kwargs)
+    return kueventparser(factory=factory, method='get', **kwargs)

@@ -6,6 +6,11 @@ dev
 ---
 - Update Documentacions
 
+2.1.0 (2019-02-20)
+------------------
+**New Features**
+- Update script
+- Add method for api and package
 
 2.0.2 (2019-02-19)
 ------------------

@@ -42,9 +42,6 @@ class Event:
 
         Returns:
             str: `self.title`
-
-            イベント名を返す.
-
         """
         return self.title
 
@@ -53,3 +50,12 @@ class Event:
             return False
         # __dict__メソッドを使ってattributesを比較
         return self.__dict__ == other.__dict__
+
+    def dict(self):
+        """ to Dictionary
+
+        event == Event(**event.dict())
+
+        :return:
+        """
+        return self.__dict__.copy()
