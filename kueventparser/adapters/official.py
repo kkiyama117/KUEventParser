@@ -20,8 +20,9 @@ class OfficialEventFactory(EventFactoryMixin):
                 "calendar/?year={0}&month={1}"
 
     @classmethod
-    def get(cls, url: str, date: datetime):
-        return cls._get_event(url, date)
+    def get(cls, url: str):
+        date = datetime.date.today()
+        return cls._get_event(url=url, date=date)
 
     @classmethod
     def get_all(cls, date: datetime.date):

@@ -8,20 +8,21 @@ eventそのものを得たい場合,以下の関数を利用する.
 
 Example:
 
-    >>> get_all()
+    >>> from kueventparser import api
+    >>> api.get_all()
     []
 
 詳細は各関数のdocstringを参照.
 """
 
-from . import core
+from .core import event_parser
 
 
 def kueventparser(factory, method, **kwargs):
-    core.event_parser(factory, method, **kwargs)
+    return event_parser(factory, method, **kwargs)
 
 
-def get_all(factory='official', **kwargs) -> list:
+def get_all(factory='official', **kwargs):
     """Construct and return an list of Class `Event`.
 
     hookを呼び出す.
@@ -37,12 +38,12 @@ def get_all(factory='official', **kwargs) -> list:
             両方指定した場合, `date` が優先される.
 
     Returns:
-        list: list of :obj:`kueventparser.events.Event`
+        generator of Events
     """
-    return core.event_parser(factory=factory, method='get_all', **kwargs)
+    return kueventparser(factory=factory, method='get_all', **kwargs)
 
 
-def get(factory='official', **kwargs) -> list:
+def get(factory='official', **kwargs):
     """Construct and return an list of Class `Event`.
 
     hookを呼び出す.
@@ -53,6 +54,6 @@ def get(factory='official', **kwargs) -> list:
         url: url of event
 
     Returns:
-        list: list of :obj:`kueventparser.events.Event`
+        :obj:`kueventparser.events.Event`: Event
     """
-    return core.event_parser(factory=factory, method='get', **kwargs)
+    return kueventparser(factory=factory, method='get', **kwargs)

@@ -80,25 +80,62 @@ def main():
     """スクリプトとして実行したとき,実際に実行される関数
 
     `argparse` を用いた.
-    `get` を呼び出すだけ.
     """
     import argparse
 
-    parser = argparse.ArgumentParser(description='event parser of kyoto Univ.')
-    parser.add_argument('manager', default='official', nargs='?',
-                        const="official", type=str, choices=None,
-                        action='store',
-                        help="Manager for parsing Events from any homepages 'official' etc",
-                        metavar=None)
+    # templates
+    parent_parser = argparse.ArgumentParser(add_help=False)
+    parent_parser.add_argument('manager', default='official', nargs='?',
+                               const="official", type=str, choices=None,
+                               action='store',
+                               help="Manager for parsing Events from any homepages 'official' etc",
+                               metavar=None)
+
+    # args for get_all
+    get_all_parser_mixin = argparse.ArgumentParser(add_help=False)
+    get_all_parser_mixin.add_argument('--year', '-y', type=int, action='store',
+                                      help="year for get_events (only used in `get_all`)")
+    get_all_parser_mixin.add_argument('--month', '-m', type=int, action='store',
+                                      help="month for get_events (only used in `get_all`)")
+
+    # main parser
+    parser = argparse.ArgumentParser(
+        description='event parser of kyoto Univ.',
+        epilog="For detail, see github, sphinx and source code",
+        parents=[parent_parser, get_all_parser_mixin]
+    )
+
+    # main parser args
     parser.add_argument('method', default='get_all', nargs='?',
                         const="get_all", type=str, choices=None,
                         action='store',
                         help="method for parsing Event. 'get', 'get_all' etc",
                         metavar=None)
+    # args for get
+    parser.add_argument('--url', '-u', type=str, action='store',
+                        help="url for event (only used in `get`, required if `method` is 'get')")
+
+    # sub commands
+    # `get` or `get_all`
+    subparsers = parser.add_subparsers(dest="commands", help='sub-commands. for detail, see "subcommand -h".',
+                                       title='commands')
+
+    # GET
+    get_parser = subparsers.add_parser("get", parents=[parent_parser])
+    get_parser.set_defaults(method="get")
+    get_parser.add_argument('url', type=str, action='store',
+                            help="url for event")
+
+    get_all_parser = subparsers.add_parser("get_all", parents=[parent_parser, get_all_parser_mixin])
+    get_all_parser.set_defaults(method="get_all")
+
     args = parser.parse_args()
+
+    kwargs = {}
     # call event_parser
-    for event in event_parser(factory=args.manager, method=args.method):
-        print(event)
+    # for event in event_parser(factory=args.manager, method=args.method, kwargs=kwargs):
+    #     print(event)
+    print(args)
 
 
 if __name__ == '__main__':
