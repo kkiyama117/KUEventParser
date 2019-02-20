@@ -50,4 +50,5 @@ class EventFactoryMixin(metaclass=ABCMeta):
             Event: Event class
 
         """
-        pass
+        return Event(title="", url=url, location="", description="",
+                     date=date, start=datetime.time(0, 0, 0), end=datetime.time(0, 0, 1))
