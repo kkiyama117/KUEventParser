@@ -29,11 +29,25 @@ parse_event [-h] [--help]
 ```
 
 ## Docs
+
+### `get`
+```python
+from kueventparser import get
+get(url="url of event")
+```
+
 ### `get_all`
 ```python
-from kueventparser.api import get_events
-get_events()
+from kueventparser import get_all
+get_all()
 ```
+
+### kueventparser
+```python
+import kueventparser
+kueventparser.kueventparser('get_all', year=2019, month=2)
+```
+
 `event`は指定URLのイベントページから抽出したイベント情報(`Event`)で、以下の構造になっている。
 ```python
 class Event:
@@ -42,7 +56,7 @@ class Event:
 
     def __init__(self, name:str, url: str, location: str, description: str, date: datetime.date,
                  start: datetime.time,
-                 end: datetime.time, **kargs):
+                 end: datetime.time):
         """イニシャライザー
         
         Args:

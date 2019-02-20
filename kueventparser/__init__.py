@@ -13,7 +13,7 @@ is got by sphinx .
 :license: MIT, see LICENSE for more details.
 """
 
-from .api import get, get_all
+from .api import kueventparser, get, get_all
 from .core import event_parser
 
 from .__version__ import __title__, __description__, __url__, __version__

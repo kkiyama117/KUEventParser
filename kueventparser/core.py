@@ -22,14 +22,11 @@ def prepare(factory, method, **kwargs):
     Returns:
 
     """
-    _kwargs: dict
     _factory = select_factory(factory)
     if method is 'get_all':
-        _kwargs = select_date(**kwargs)
+        _kwargs: dict = select_date(**kwargs)
     elif method is 'get':
-        _kwargs = {'url', kwargs.get('url')}
-    else:
-        _kwargs = {}
+        _kwargs: dict = {'url': kwargs.get('url')}
 
     return _factory, method, _kwargs
 
@@ -114,12 +111,12 @@ def main():
     )
     # sub commands
     # `get` or `get_all`
-    subparsers = parser.add_subparsers(dest="commands", help='sub-commands. for detail, see "subcommand -h".',
+    subparsers = parser.add_subparsers(dest="method", help='sub-commands. for detail, see "subcommand -h".',
                                        title='commands')
     # GET
     get_parser = subparsers.add_parser("get")
     get_parser.set_defaults(method="get")
-    get_parser.add_argument('--url', type=str, action='store', required=True,
+    get_parser.add_argument('--url', '-u', type=str, action='store', required=True,
                             help="url for event", metavar='url')
     # GET_ALL
     get_all_parser = subparsers.add_parser("get_all")
@@ -133,8 +130,11 @@ def main():
     kwargs = vars(args)
     # call event_parser
     # print(kwargs)
-    for event in event_parser(**kwargs):
-        print(event)
+    if args.method is 'get':
+        print(event_parser(**kwargs))
+    else:
+        for event in event_parser(**kwargs):
+            print(event)
 
 
 if __name__ == '__main__':
