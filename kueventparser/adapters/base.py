@@ -19,7 +19,7 @@ class EventFactoryMixin(metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def get(cls, date) -> list:
+    def get(cls, url) -> list:
         return []
 
     @staticmethod

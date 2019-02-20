@@ -17,6 +17,10 @@ Example:
 from . import core
 
 
+def kueventparser(factory, method, **kwargs):
+    core.event_parser(factory, method, **kwargs)
+
+
 def get_all(factory='official', **kwargs) -> list:
     """Construct and return an list of Class `Event`.
 
