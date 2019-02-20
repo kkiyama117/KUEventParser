@@ -32,7 +32,7 @@ class OfficialEventFactory(EventFactoryMixin):
             date (datetime.date): date to get events including year and month
 
         Returns:
-            generator of `events.Event'
+            list: `events.Event'
         """
         return list(cls.generate_all(date))
 
