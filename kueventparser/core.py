@@ -27,6 +27,8 @@ def prepare(factory, method, **kwargs):
         _kwargs: dict = select_date(**kwargs)
     elif method is 'get':
         _kwargs: dict = {'url': kwargs.get('url')}
+    else:
+        _kwargs: dict = select_date(**kwargs)
 
     return _factory, method, _kwargs
 
