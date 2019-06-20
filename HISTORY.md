@@ -6,6 +6,11 @@ dev
 ---
 - Update Documentacions
 
+2.1.2 (2019-04-25)
+------------------
+**New Features**
+- Add `generate_all` API
+
 2.1.0 (2019-02-20)
 ------------------
 **New Features**

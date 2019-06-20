@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
+from functools import total_ordering
 
 
+@total_ordering
 class Event:
     """イベント情報を含んだclass
 
@@ -47,15 +49,32 @@ class Event:
 
     def __eq__(self, other):
         if other is None or type(self) != type(other):
-            return False
+            return NotImplemented
         # __dict__メソッドを使ってattributesを比較
         return self.__dict__ == other.__dict__
+
+    def __lt__(self, other):
+        if other is None or type(self) is not type(other):
+            return NotImplemented
+        return self.start < other.start
 
     def dict(self):
         """ to Dictionary
 
         event == Event(**event.dict())
 
-        :return:
+        Returns:
+            dict: self.__dict__
         """
         return self.__dict__.copy()
+
+    def is_same_event(self, others):
+        """
+
+        Args:
+            others(Event): event class
+
+        Returns:
+            bool: others has same url or not
+        """
+        return self.url == others.url
