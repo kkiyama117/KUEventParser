@@ -15,9 +15,14 @@ class OfficialEventFactory(EventFactoryMixin):
     """イベントの管理クラス
     """
 
+    @staticmethod
+    def _get_events_urls(date: datetime.date) -> dict:
+        pass
+
     # template of kyoto univ official event calender
     _template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
                 "calendar/?year={0}&month={1}"
+    _event_urls = []
 
     @classmethod
     def get(cls, url: str):
@@ -42,7 +47,9 @@ class OfficialEventFactory(EventFactoryMixin):
         # get beautifulsoup object from url
         session = url_to_soup(url)
         _, last = calendar.monthrange(date.year, date.month)
+        # return values
         answer = None
+        # every day
         for day in range(1, last):
             _date = datetime.date(date.year, date.month, day)
             events = [cls._get_event(url, _date) for url in
