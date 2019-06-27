@@ -3,29 +3,21 @@
 
 ## Usage
 ### install
-```bash
-# 任意のPython3.4以上の環境で構いません
-python -m venv .venv
-source venv/bin/activate
-# plz use setuptools 38 or newer version.
-pip install -U setuptools 
-```
 `pip` を利用する場合(主にインストールした後バージョン管理をpipでしたい人向け)
 ```bash
-# by pip 
-pip install -e .
+$ pip install kueventparser
 ```
-`setuptools` を利用する場合(pipを利用しない場合)
-```bash
-# by setuptools
-python setup.py install
-```
-update や uninstall は各ツールのhelpを見るなどするか,
-詳細ドキュメント(下記)を見てください.
 
 ### run script
 ```bash
 parse_event [-h] [--help]
+```
+
+## Develop
+
+```bash
+git clone https://github.com/kkiyama117/KUEventParser.git
+
 ```
 
 ## Docs
