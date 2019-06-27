@@ -2,5 +2,4 @@ include README.md
 include HISTORY.md
 include setup.cfg
 include LICENSE
-include *.ini
 

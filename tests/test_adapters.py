@@ -6,7 +6,7 @@ from kueventparser.adapters.official import OfficialEventFactory
 from tests import conftest
 
 
-class Test_KUEventManager:
+class TestKUEventManager:
     """ 'obj:kueventparser.events.OfficialEventFactory' のテスト
     """
 
@@ -18,8 +18,7 @@ class Test_KUEventManager:
                         "test_event1.xml")
         assert_event = conftest.make_test_event(uri)
         # event
-        event = OfficialEventFactory._get_event(url=
-                                                "http://www.kyoto-u.ac.jp/ja/"
+        event = OfficialEventFactory._get_event(url="http://www.kyoto-u.ac.jp/ja/"
                                                 "social/events_news/department"
                                                 "/yasei/events/2017/"
                                                 "171030_2140.html",
