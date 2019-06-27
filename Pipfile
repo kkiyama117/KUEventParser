@@ -1,0 +1,29 @@
+[[source]]
+# name = "kueventparser"
+# url = "https://pypi.org/project/kueventparser/"
+# verify_ssl = true
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+autopep8 = "*"
+flake8 = "*"
+pytest = "*"
+pytest-cov = "*"
+tox = "*"
+
+[packages]
+beautifulsoup4 = "*"
+lxml = "*"
+pytz = "*"
+requests = "*"
+
+# [requires]
+# python_version = "3.7"
+
+[scripts]
+start = "python "
+test = "pytest -v"
+format = "autopep8 -ivr ."
+lint = "flake8 --show-source ."
