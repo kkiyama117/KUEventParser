@@ -9,35 +9,8 @@ import os
 import sys
 from codecs import open
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
 
 here = os.path.abspath(os.path.dirname(__file__))
-
-
-class PyTest(TestCommand):
-    """ PyTestを実行するコマンドの実装
-
-    pytestのオプションを指定する際は--pytest-args='{options}'を使用する.
-    """
-    user_options = [
-        ('pytest-args=', 'a', 'Arguments for pytest'),
-    ]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_target = []
-        self.pytest_args = []
-
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = 'tests'
-
-    def run_tests(self):
-        import pytest
-        errno = pytest.main(self.pytest_args)
-        sys.exit(errno)
-
 
 # 'setup.py publish' shortcut.
 if sys.argv[-1] == 'publish':
@@ -60,12 +33,6 @@ requires = [
     'lxml',
     'pytz',
     'requests'
-]
-
-test_requirements = [
-    'pytest',
-    'pytest-cov',
-    'tox'
 ]
 
 about = {}
@@ -119,10 +86,4 @@ setup(
     entry_points={
         'console_scripts': ['parse_event= kueventparser.core:main']
     },
-    cmdclass={'test': PyTest},
-    tests_require=test_requirements,
-    extras_require={
-        'test': ['pytest', 'tox'],
-    },
-
 )
