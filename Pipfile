@@ -14,7 +14,6 @@ twine = "*"
 [packages]
 # [requires]
 # python_version = "3.7"
-autopep8 = {editable = true,path = "."}
 
 [scripts]
 start = "python kueventparser/core.py get_all"
