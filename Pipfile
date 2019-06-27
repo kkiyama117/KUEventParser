@@ -1,7 +1,4 @@
 [[source]]
-# name = "kueventparser"
-# url = "https://pypi.org/project/kueventparser/"
-# verify_ssl = true
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
@@ -12,18 +9,18 @@ flake8 = "*"
 pytest = "*"
 pytest-cov = "*"
 tox = "*"
+twine = "*"
 
 [packages]
-beautifulsoup4 = "*"
-lxml = "*"
-pytz = "*"
-requests = "*"
-
 # [requires]
 # python_version = "3.7"
+autopep8 = {editable = true,path = "."}
 
 [scripts]
 start = "python kueventparser/core.py get_all"
-test = "pytest -v"
+test = "tox"
 format = "autopep8 -ivr ."
 lint = "flake8 --show-source ."
+clean = "rm -rf ./dist/*"
+publish = "rm -rf ./dist/* && python setup.py sdist && twine upload ./dist/*"
+publish_test = "rm -rf ./dist/* && python setup.py sdist && twine upload --repository pypitest ./dist/*"
