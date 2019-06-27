@@ -12,20 +12,6 @@ from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-# 'setup.py publish' shortcut.
-if sys.argv[-1] == 'publish':
-    os.system('rm -rf dist/*')
-    os.system('python setup.py sdist')
-    os.system('twine upload dist/*')
-    sys.exit()
-
-# 'setup.py publish' shortcut.
-if sys.argv[-1] == 'publish_test':
-    os.system('rm -rf dist/*')
-    os.system('python setup.py sdist')
-    os.system('twine upload --repository pypitest dist/*')
-    sys.exit()
-
 packages = ['kueventparser', 'kueventparser.adapters']
 
 requires = [
