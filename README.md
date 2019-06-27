@@ -14,14 +14,14 @@ parse_event [-h] [--help]
 ```
 
 ## Develop
-
 ```bash
 git clone https://github.com/kkiyama117/KUEventParser.git
-
+# recommend using pipenv
+pipenv install
 ```
+you can also use venv with requirements.txt
 
 ## Docs
-
 ### `get`
 ```python
 from kueventparser import get
