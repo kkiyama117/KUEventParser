@@ -17,7 +17,7 @@ parse_event [-h] [--help]
 ```bash
 git clone https://github.com/kkiyama117/KUEventParser.git
 # recommend using pipenv
-pipenv install
+pipenv install --dev
 ```
 you can also use venv with requirements.txt
 

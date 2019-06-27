@@ -12,6 +12,10 @@ tox = "*"
 twine = "*"
 
 [packages]
+beautifulsoup4 = "*"
+lxml = "*"
+pytz = "*"
+requests = "*"
 # [requires]
 # python_version = "3.7"
 
@@ -20,7 +24,7 @@ start = "python kueventparser/core.py get_all"
 test = "tox"
 format = "autopep8 -ivr ."
 lint = "flake8 --show-source ."
-clean = "/usr/bin/rm -f dist/*"
+clean = "/usr/bin/rm -f dist/*.tar.gz"
 compile = "python setup.py sdist"
 publish = "twine upload dist/*"
 publish_test = "twine upload --repository pypitest dist/*"
