@@ -61,7 +61,7 @@ class OfficialEventFactory(EventFactoryMixin):
                 urls = _url
             else:
                 urls = chain(urls, _url)
-        yield from tuple(urls)
+        yield from set(urls)
 
     @classmethod
     def _get_events_url_daily(cls, date: datetime.date, session=None):
