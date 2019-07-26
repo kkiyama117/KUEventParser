@@ -9,6 +9,7 @@ import datetime
 
 from kueventparser.adapters.base import EventFactoryMixin
 from kueventparser.adapters.official import OfficialEventFactory
+from kueventparser.utils import date_to_month
 
 
 def prepare(factory, method, **kwargs):
@@ -84,10 +85,11 @@ def select_date(**kwargs):
     year = kwargs.get('year', None)
     month = kwargs.get('month', None)
     if year is not None and month is not None:
-        kwargs.setdefault("date", datetime.date(year, month, 1))
+        kwargs.setdefault("start_date", datetime.date(year, month, 1))
     else:
-        kwargs.setdefault("date", datetime.date.today())
-    _kwargs = {"date": kwargs.get("date")}
+        kwargs.setdefault("start_date", datetime.date.today())
+    start, end = date_to_month(kwargs.get('start_date'))
+    _kwargs = {'start_date': start, 'end_date': end}
     return _kwargs
 
 
@@ -127,6 +129,8 @@ def main():
                                 help="year for get_events")
     get_all_parser.add_argument('--month', '-m', type=int, action='store', dest="month",
                                 help="month for get_events")
+    # get_all_parser.add_argument('--day', '-d', type=int, action='store', dest="day",
+    #                             help="day for get_events")
 
     args = parser.parse_args()
     kwargs = vars(args)

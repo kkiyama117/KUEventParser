@@ -13,7 +13,7 @@ class EventFactoryMixin(metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def get_all(cls, date) -> list:
+    def get_all(cls, start_date, end_date) -> list:
         return []
 
     @classmethod

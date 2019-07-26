@@ -3,9 +3,9 @@ KUEventParser Library
 ---------------------
 KUEventParser is a library to parse events of Kyoto_univ
 usage:
-   >>> import kueventparser
-   >>> events = kueventparser.get_all(2019,1)
-   >>> list(events)
+   # >>> import kueventparser
+   # >>> events = kueventparser.get_all()
+   # >>> list(events)
    [<events.Events
 The other  methods are supported - see `kueventparser.api`. Full documentation
 is got by sphinx .

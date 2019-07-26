@@ -3,7 +3,7 @@
 
 主にbeautifulsoup4周りの物が多い.
 """
-
+import calendar
 import datetime
 import re
 
@@ -25,6 +25,11 @@ def url_to_soup(url: str) -> BeautifulSoup:
     r = requests.get(url)
     soup = BeautifulSoup(r.content, "lxml")
     return soup
+
+
+def date_to_month(date: datetime.date):
+    _, last = calendar.monthrange(date.year, date.month)
+    return datetime.date(date.year, date.month, 1), datetime.date(date.year, date.month, last)
 
 
 def parse_str_to_time(time_text: str):

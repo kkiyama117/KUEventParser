@@ -2,6 +2,7 @@ import calendar
 import datetime
 import re
 from itertools import chain
+from typing import Optional
 
 import bs4
 
@@ -13,11 +14,6 @@ from kueventparser.utils import url_to_soup, parse_str_to_time, parse_str_to_dat
 class OfficialEventFactory(EventFactoryMixin):
     """イベントの管理クラス
     """
-
-    @staticmethod
-    def _get_events_urls(date: datetime.date) -> dict:
-        pass
-
     # template of kyoto univ official event calender
     _template = "http://www.kyoto-u.ac.jp/ja/social/event/" \
                 "calendar/?year={0}&month={1}"
@@ -29,35 +25,43 @@ class OfficialEventFactory(EventFactoryMixin):
         return cls._get_event(url=url)
 
     @classmethod
-    def get_all(cls, date: datetime.date):
+    def get_all(cls, start_date: datetime.date, end_date: datetime.date):
         """ get events in month containing date
 
         Args:
-            date (datetime.date): date to get events including year and month
+            start_date (datetime.date): date to get events including year and month
+            end_date (datetime.date): date to get events including year and month
 
         Returns:
             list: `events.Event'
         """
-        return list(cls.generate_all(date))
+        return list(cls.generate_all(start_date, end_date))
 
     @classmethod
-    def generate_all(cls, start_date: datetime.date):
+    def generate_all(cls, start_date: datetime.date, end_date: datetime.date):
         url = cls._template.format(start_date.year, start_date.month)
         # get beautifulsoup object from url
         session = url_to_soup(url)
-        _, last = calendar.monthrange(start_date.year, start_date.month)
         # return values
-        answer = None
-        # every day
-        for day in range(1, last):
-            _date = datetime.date(start_date.year, start_date.month, day)
-            events = [cls._get_event(url) for url in
-                      cls._get_events_url_daily(datetime.date(start_date.year, start_date.month, day), session=session)]
-            if answer is None:
-                answer = events
-            else:
-                answer = chain(answer, events)
+        answer = []
+        # TODO: python3.8 PEP572
+        for _url in cls._get_events_urls(start_date, end_date, session):
+            event = cls._get_event(url=_url)
+            if event is not None:
+                answer.append(event)
         return answer
+
+    @classmethod
+    def _get_events_urls(cls, start, end: datetime.date, session=None):
+        urls = None
+        for n in range((end - start).days):
+            day = start + datetime.timedelta(n)
+            _url = cls._get_events_url_daily(day, session=session)
+            if urls is None:
+                urls = _url
+            else:
+                urls = chain(urls, _url)
+        yield from tuple(urls)
 
     @classmethod
     def _get_events_url_daily(cls, date: datetime.date, session=None):
@@ -80,16 +84,7 @@ class OfficialEventFactory(EventFactoryMixin):
                 yield url
 
     @classmethod
-    def merge_same_urls(cls):
-        return []
-
-    @classmethod
-    def get_event_urls(cls, start_date, last_date, session=None):
-        day_urls = (cls._get_events_url_daily(datetime.date(start_date.year, start_date.month, day), session=session)
-                    for day in range((start_date - last_date).days + 1))
-
-    @classmethod
-    def _get_event(cls, url: str) -> Event:
+    def _get_event(cls, url: str) -> Optional[Event]:
         """日付とURLからイベントを作る.
 
         日付を引数に取るのは,HPの日付の表記がバラバラすぎるため.
@@ -106,14 +101,17 @@ class OfficialEventFactory(EventFactoryMixin):
         # リストに実際のイベントの情報を取り込む
         title = soup.find(
             "h1", class_="title").stripped_strings.__next__()
-        location = cls.__find_location(soup)
-        description = cls.__find_description(soup)
-        date_data = parse_str_to_date(cls.__find_date(soup))
-        time_data = parse_str_to_time(cls.__find_time(soup))
-        start_ = date_data.get('start')
-        end_ = date_data.get('end')
-        start = time_data.get('start')
-        end = time_data.get('end')
+        try:
+            location = cls.__find_location(soup)
+            description = cls.__find_description(soup)
+            date_data = parse_str_to_date(cls.__find_date(soup))
+            time_data = parse_str_to_time(cls.__find_time(soup))
+            start_ = date_data.get('start')
+            end_ = date_data.get('end')
+            start = time_data.get('start')
+            end = time_data.get('end')
+        except AttributeError:
+            return None
 
         # create event instance
         event = Event(title=title, url=url, location=location,
