@@ -15,7 +15,7 @@ Example:
 詳細は各関数のdocstringを参照.
 """
 
-from .core import event_parser
+from kueventparser.core import event_parser
 
 
 def kueventparser(factory, method, **kwargs):

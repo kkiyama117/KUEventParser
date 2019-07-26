@@ -20,7 +20,7 @@ requests = "*"
 # python_version = "3.7"
 
 [scripts]
-start = "python kueventparser/core.py get_all"
+start = "python -m kueventparser.core get_all"
 test = "tox"
 format = "autopep8 -ivr ."
 lint = "flake8 --show-source ."

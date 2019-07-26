@@ -8,11 +8,11 @@
 import os
 import sys
 from codecs import open
-from setuptools import setup
+from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-packages = ['kueventparser', 'kueventparser.adapters']
+packages = find_packages()
 
 requires = [
     'beautifulsoup4',
