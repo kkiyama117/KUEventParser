@@ -92,9 +92,9 @@ def parse_str_to_date(date_text: str):
     """
     # 2019年06月04日 火曜日 〜 2019年07月16日 火曜日
     pattern = (r'.*?(?P<year_start>\d+)年(?P<month_start>\d+)月(?P<day_start>\d+)日.*?〜'
-               r'.*?(?P<year_end>\d+)年(?P<month_end>\d+)月(?P<day_end>\d+)日.*?'
+               r'.*?(?P<year_end>\d+)年(?P<month_end>\d+)月(?P<day_end>\d+)日.*'
                )
-    pattern2 = (r'.*?(?P<year_start>\d+)年(?P<month_start>\d+)月(?P<day_start>\d+)日 *?'
+    pattern2 = (r'.*?(?P<year_start>\d+)年(?P<month_start>\d+)月(?P<day_start>\d+)日.*'
                 )
 
     match = re.match(pattern, date_text)
@@ -102,9 +102,9 @@ def parse_str_to_date(date_text: str):
     if match is None:
         # パターン1に合わなかったらパターン2を使う
         match = match2
-    elif match2 is None:
-        # パターンにマッチしなければ例外を返す
-        raise ValueError
+        if match is None:
+            # パターンにマッチしなければ例外を返す
+            raise ValueError
     year_start = int(match.group('year_start'))
     month_start = int(match.group('month_start'))
     day_start = int(match.group('day_start'))

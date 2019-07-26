@@ -7,7 +7,7 @@ import bs4
 
 from kueventparser.adapters.base import EventFactoryMixin
 from kueventparser.events import Event
-from kueventparser.utils import url_to_soup, parse_str_to_time
+from kueventparser.utils import url_to_soup, parse_str_to_time, parse_str_to_date
 
 
 class OfficialEventFactory(EventFactoryMixin):
@@ -26,7 +26,7 @@ class OfficialEventFactory(EventFactoryMixin):
     @classmethod
     def get(cls, url: str):
         date = datetime.date.today()
-        return cls._get_event(url=url, start_date=date, end_date=date)
+        return cls._get_event(url=url)
 
     @classmethod
     def get_all(cls, date: datetime.date):
@@ -51,7 +51,7 @@ class OfficialEventFactory(EventFactoryMixin):
         # every day
         for day in range(1, last):
             _date = datetime.date(start_date.year, start_date.month, day)
-            events = [cls._get_event(url, _date, _date) for url in
+            events = [cls._get_event(url) for url in
                       cls._get_events_url_daily(datetime.date(start_date.year, start_date.month, day), session=session)]
             if answer is None:
                 answer = events
@@ -89,15 +89,13 @@ class OfficialEventFactory(EventFactoryMixin):
                     for day in range((start_date - last_date).days + 1))
 
     @classmethod
-    def _get_event(cls, url: str, start_date: datetime.date, end_date: datetime.date) -> Event:
+    def _get_event(cls, url: str) -> Event:
         """日付とURLからイベントを作る.
 
         日付を引数に取るのは,HPの日付の表記がバラバラすぎるため.
 
         Args:
             url: URL
-            start_date: 取得するイベントの日付
-            end_date: 取得するイベントの日付
 
         Returns:
             Event: Event class
@@ -110,13 +108,16 @@ class OfficialEventFactory(EventFactoryMixin):
             "h1", class_="title").stripped_strings.__next__()
         location = cls.__find_location(soup)
         description = cls.__find_description(soup)
+        date_data = parse_str_to_date(cls.__find_date(soup))
         time_data = parse_str_to_time(cls.__find_time(soup))
-        start = time_data["start"]
-        end = time_data["end"]
+        start_ = date_data.get('start')
+        end_ = date_data.get('end')
+        start = time_data.get('start')
+        end = time_data.get('end')
 
         # create event instance
         event = Event(title=title, url=url, location=location,
-                      description=description, start_date=start_date, end_date=start_date, start=start, end=end)
+                      description=description, start_date=start_, end_date=end_, start=start, end=end)
         return event
 
     @staticmethod
@@ -195,8 +196,7 @@ class OfficialEventFactory(EventFactoryMixin):
         Returns:
             str: 開催時間
         """
-        date = ""
-        for string in elem.find(string="開催日") \
-                .find_next("span").stripped_strings:
-            date += string
-        return date
+        item = None
+        for item in elem.find(string="開催日").parent.parent.parent.stripped_strings:
+            pass
+        return item
