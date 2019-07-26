@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import calendar
 import datetime
 import re
@@ -27,7 +26,7 @@ class OfficialEventFactory(EventFactoryMixin):
     @classmethod
     def get(cls, url: str):
         date = datetime.date.today()
-        return cls._get_event(url=url, date=date)
+        return cls._get_event(url=url, start_date=date, end_date=date)
 
     @classmethod
     def get_all(cls, date: datetime.date):
@@ -42,18 +41,18 @@ class OfficialEventFactory(EventFactoryMixin):
         return list(cls.generate_all(date))
 
     @classmethod
-    def generate_all(cls, date: datetime.date):
-        url = cls._template.format(date.year, date.month)
+    def generate_all(cls, start_date: datetime.date):
+        url = cls._template.format(start_date.year, start_date.month)
         # get beautifulsoup object from url
         session = url_to_soup(url)
-        _, last = calendar.monthrange(date.year, date.month)
+        _, last = calendar.monthrange(start_date.year, start_date.month)
         # return values
         answer = None
         # every day
         for day in range(1, last):
-            _date = datetime.date(date.year, date.month, day)
-            events = [cls._get_event(url, _date) for url in
-                      cls._get_events_url_daily(datetime.date(date.year, date.month, day), session=session)]
+            _date = datetime.date(start_date.year, start_date.month, day)
+            events = [cls._get_event(url, _date, _date) for url in
+                      cls._get_events_url_daily(datetime.date(start_date.year, start_date.month, day), session=session)]
             if answer is None:
                 answer = events
             else:
@@ -81,14 +80,24 @@ class OfficialEventFactory(EventFactoryMixin):
                 yield url
 
     @classmethod
-    def _get_event(cls, url: str, date: datetime.date) -> Event:
+    def merge_same_urls(cls):
+        return []
+
+    @classmethod
+    def get_event_urls(cls, start_date, last_date, session=None):
+        day_urls = (cls._get_events_url_daily(datetime.date(start_date.year, start_date.month, day), session=session)
+                    for day in range((start_date - last_date).days + 1))
+
+    @classmethod
+    def _get_event(cls, url: str, start_date: datetime.date, end_date: datetime.date) -> Event:
         """日付とURLからイベントを作る.
 
         日付を引数に取るのは,HPの日付の表記がバラバラすぎるため.
 
         Args:
             url: URL
-            date: 取得するイベントの日付
+            start_date: 取得するイベントの日付
+            end_date: 取得するイベントの日付
 
         Returns:
             Event: Event class
@@ -107,7 +116,7 @@ class OfficialEventFactory(EventFactoryMixin):
 
         # create event instance
         event = Event(title=title, url=url, location=location,
-                      description=description, date=date, start=start, end=end)
+                      description=description, start_date=start_date, end_date=start_date, start=start, end=end)
         return event
 
     @staticmethod
@@ -172,3 +181,22 @@ class OfficialEventFactory(EventFactoryMixin):
                 .find_next("span").stripped_strings:
             time += string
         return time
+
+    @staticmethod
+    def __find_date(elem: bs4.element.Tag):
+        """HTML要素から時間を抽出する
+
+        HTMLをBeautifulSoupでパースしてできたTagオブジェクトから
+        時間の記述を抽出し文字列で返す
+
+        Args:
+            elem(:obj:`bs4.element.Tag`): HTML要素
+
+        Returns:
+            str: 開催時間
+        """
+        date = ""
+        for string in elem.find(string="開催日") \
+                .find_next("span").stripped_strings:
+            date += string
+        return date

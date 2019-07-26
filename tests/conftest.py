@@ -32,6 +32,6 @@ def make_test_event(uri: str, ) -> events.Event:
         description += "\n"
     # Eventの作成.
     event = events.Event(title=title, url=url, location=location,
-                         description=description, date=date, start=start,
+                         description=description, start_date=date, end_date=date, start=start,
                          end=end)
     return event
