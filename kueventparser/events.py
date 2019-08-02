@@ -12,6 +12,7 @@ class Event:
         location(:obj:`str`): 開催地
         description(:obj:`str`): 詳細説明文
         start_date (:obj:`datetime.date`): 開催日
+        end_date (:obj:`datetime.date`): 終了日
         start (:obj:`datetime.time`): 開始時間
         end (:obj:`datetime.time`): 終了時間
     """
@@ -27,6 +28,7 @@ class Event:
             location(str): 開催地
             description(str): 詳細説明文
             start_date: 開催日
+            end_date: 開催日
             start: 開始時間
             end: 終了時間
         """
