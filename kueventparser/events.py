@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime
 from functools import total_ordering
 
@@ -12,13 +11,14 @@ class Event:
         url(:obj:`str`): イベント情報のURL
         location(:obj:`str`): 開催地
         description(:obj:`str`): 詳細説明文
-        date (:obj:`datetime.date`): 開催日
+        start_date (:obj:`datetime.date`): 開催日
+        end_date (:obj:`datetime.date`): 終了日
         start (:obj:`datetime.time`): 開始時間
         end (:obj:`datetime.time`): 終了時間
     """
 
     def __init__(self, title: str, url: str, location: str, description: str,
-                 date: datetime.date, start: datetime.time,
+                 start_date: datetime.date, end_date: datetime.date, start: datetime.time,
                  end: datetime.time):
         """イニシャライザー
 
@@ -27,7 +27,8 @@ class Event:
             url(str): イベント情報のURL
             location(str): 開催地
             description(str): 詳細説明文
-            date: 開催日
+            start_date: 開催日
+            end_date: 開催日
             start: 開始時間
             end: 終了時間
         """
@@ -35,7 +36,8 @@ class Event:
         self.url = url
         self.location = location
         self.description = description
-        self.date = date
+        self.start_date = start_date
+        self.end_date = end_date
         self.start = start
         self.end = end
 

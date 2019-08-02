@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 # 実行環境
 executors:
   python_latest_executor:
@@ -13,6 +13,7 @@ jobs:
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:  # このステップは依存関係をインストールする*前*に実行します
           key: kueventparser-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
@@ -41,6 +42,8 @@ workflows:
   "Base Test":
     jobs:
       - test:
-          filters:
-            branches:
-              only: develop
+#          filters:
+#            branches:
+#              only:
+#                - master
+#                - develop

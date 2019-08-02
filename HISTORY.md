@@ -6,6 +6,12 @@ dev
 ---
 - Update Documentacions
 
+3.0.1 (2019-07-26)
+------------------
+**Improvements**
+- Update `generate_all` API
+- Event class now have start date and end date
+
 2.1.2 (2019-04-25)
 ------------------
 **New Features**
